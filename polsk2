@@ -1,0 +1,151 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <iostream>
+
+#include "Stack.h"
+
+#include <string>
+
+#include <sstream>
+
+using namespace std;
+
+//int a;
+
+//char b;
+
+//b = static_cast<char>(a);
+
+string IntToStr(double Val)
+
+{
+
+	string result;
+
+	std::ostringstream ost;
+
+	ost << Val;
+
+	result = ost.str();
+
+	return result;
+
+}
+
+int main() {
+
+	Stack* sc = new Stack;
+
+	char formula[3]; //5+2 ориг
+
+	string mas[13] = { "6", "10", "+", "4", "-", "1", "1", "2", "*", "+", "/", "1", "+" }; //уже в обратном польском(52+)
+
+	//string mas[3] = { "15", "9", "/"}; //уже в обратном польском(52+)
+
+	string result;
+
+	string g, d;
+
+	for (int i = 0; i < 13; i++)
+
+	{
+
+		double a, b;
+
+		char c = mas[i][0];
+
+		switch (c) {
+
+		case '+':
+
+			a = atof(sc->out().c_str());
+
+			sc->pop();
+
+			b = atof(sc->out().c_str());
+
+			sc->pop();
+
+			b = a + b;
+
+			d = IntToStr(b);
+
+			sc->push(d);
+
+			break;
+
+		case '-':
+
+			a = atof(sc->out().c_str());
+
+			sc->pop();
+
+			b = atof(sc->out().c_str());
+
+			sc->pop();
+
+			b = b - a;
+
+			d = IntToStr(b);
+
+			sc->push(d);
+
+			break;
+
+		case '*':
+
+			a = atof(sc->out().c_str());
+
+			sc->pop();
+
+			b = atof(sc->out().c_str());
+
+			sc->pop();
+
+			b = a * b;
+
+			d = IntToStr(b);
+
+			sc->push(d);
+
+			break;
+
+		case '/':
+
+			a = atof(sc->out().c_str());
+
+			sc->pop();
+
+			b = atof(sc->out().c_str());
+
+			sc->pop();
+
+			b = b / a;
+
+			d = IntToStr(b);
+
+			sc->push(d);
+
+			break;
+
+		default:
+
+			string f;
+
+			f = mas[i];
+
+			sc->push(f);
+
+		}
+
+	}
+
+	result = sc->out();
+
+	cout << result;
+
+	system("pause");
+
+	return 0;
+
+}
