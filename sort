@@ -1,0 +1,78 @@
+#include <iostream>
+#include <cstdlib>
+
+using namespace std;
+
+void main(void)
+{
+    int a[100], f;
+    for (int i = 0; i < 100; i++)
+        a[i] = rand();
+    for (int i = 0; i < 100; i++)
+        cout << i + 1 << ": " << a[i] << endl;
+    cin >> f;
+    if (f == 2)
+    {
+        int index;
+        int k;
+        //сортировка выбором
+        for (int j = 99; j > 0; j--)
+        {
+            index = 0;
+            for (int i = 1; i <= j; i++)
+            {
+                if (a[index] < a[i])
+                    index = i;
+            }
+            k = a[j];
+            a[j] = a[index];
+            a[index] = k;
+        }
+    }
+    if (f == 3)
+    {
+        int k;
+        //сортировка вставками
+        for (int i = 1; i < 100; i++)
+        {
+            for (int j = i; j > 0; j--)
+            {
+                if (a[j] < a[j - 1])
+                {
+                    k = a[j - 1];
+                    a[j - 1] = a[j];
+                    a[j] = k;
+                }
+                else break;
+            }
+        }
+    }
+    if (f == 4)
+    {
+        int k, i = 0, j = 99;
+        //шейкерная сортировка
+        while (i < j)
+        {
+            for (int l = i; l < j; l++)
+                if (a[l] > a[l + 1])
+                {
+                    k = a[l + 1];
+                    a[l + 1] = a[l];
+                    a[l] = k;
+                }
+            for (int l = j; l > 0; l--)
+            {
+                if (a[l - 1] > a[l])
+                {
+                    k = a[l];
+                    a[l] = a[l - 1];
+                    a[l - 1] = k;
+                }
+            }
+            --j;
+        }
+    }
+    for (int i = 0; i < 100; i++)
+        cout << i + 1 << ": " << a[i] << endl;
+    system("pause");
+}
